@@ -1,0 +1,22 @@
+name: Cinder_helper
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+
+jobs:
+  CheckingOut:
+      name: Prepare environment
+      runs-on: self-hosted
+      steps:
+        - name: checkout the project
+          uses: actions/checkout@v4
+
+  UseAnsible:
+    runs-on: self-hosted
+    needs: CheckingOut
+    steps:
+      - name: deploy with ansible
+        run: "ansible-playbook  ${GITHUB_WORKSPACE}/ansible/playbook.yml"

@@ -1,0 +1,7 @@
+name: Web installer
+hosts: all
+become: true
+
+tasks:
+  - name: run dockerfile
+    shell: "ls -lah"
