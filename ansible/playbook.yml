@@ -1,7 +1,15 @@
-name: Web installer
-hosts: all
-become: true
+- name: Web installer
+  hosts: all
+  become: true
 
-tasks:
-  - name: run dockerfile
-    shell: "ls -lah"
+
+  tasks:
+    - name: Copy all files
+      copy:
+        remote_src: false
+        src: '{{playbook_dir | dirname}}'
+        dest: /root/projects
+
+
+    - name: Build image
+      shell: docker build -t new_mst ../.
